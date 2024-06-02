@@ -7,8 +7,8 @@ pipeline {
                 dir('.'){
                 script{
                     my_images = docker.build("nginx:custom")
+                     }
                 }
-            }
             }
         }
         stage('Test') {
