@@ -4,8 +4,8 @@ pipeline {
     stages {
         stage('Clean up'){
             steps {
-                sh 'chmod +x cleanup_docker.sh'
-                sh './cleanup_docker.sh'
+                sh 'chmod +x docker-cleanup.sh'
+                sh './docker-cleanup.sh'
             }
         }
         stage('Build') {
