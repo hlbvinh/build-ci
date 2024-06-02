@@ -1,6 +1,11 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_USERNAME = 'hlbvinh'
+        DOCKER_PASSWORD = 'Vinh240198~~'
+    }
+
     stages {
         stage('Clean up'){
             steps {
@@ -10,9 +15,12 @@ pipeline {
         }
         stage('Docker login'){
             steps {
-                sh 'export DOCKER_USERNAME=hlbvinh'
-                sh 'export DOCKER_PASSWORD=Vinh240198~~'
-                sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+                script {
+                    // Ensure the password is securely handled
+                    withEnv(["DOCKER_PASSWORD=${DOCKER_PASSWORD}"]) {
+                        sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
+                    }
+                }
             }
         }
         stage('Build') {
