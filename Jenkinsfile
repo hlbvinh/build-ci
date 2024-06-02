@@ -4,7 +4,11 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                docker build -t nginx:custom .
+                dir('.'){
+                script{
+                    my_images = docker.build("nginx:custom")
+                }
+            }
             }
         }
         stage('Test') {
